@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galeria de Projetos — Marcenaria Oliveira</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- =========================== HEADER =========================== -->
+<header>
+  <div class="nav-wrap">
+    <div class="logo">Marcenaria Oliveira<small>Móveis planejados · 100% MDF</small></div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="index.html#sobre">Sobre</a></li>
+        <li><a href="index.html#diferenciais">Diferenciais</a></li>
+        <li><a href="index.html#processo">Processo</a></li>
+        <li><a href="galeria.html" class="active">Galeria</a></li>
+        <li><a href="index.html#depoimentos">Depoimentos</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <a href="index.html#contato" class="nav-cta">Peça um orçamento</a>
+    <button class="burger" id="burgerBtn" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- =========================== HERO DA GALERIA =========================== -->
+<section class="galeria-hero">
+  <div class="container">
+    <span class="eyebrow">Nossos projetos</span>
+    <h1>Cada projeto conta uma história</h1>
+    <p>Uma seleção de móveis planejados que já saíram da nossa oficina — cozinhas, quartos, closets e muito mais, todos em MDF sob medida.</p>
+  </div>
+</section>
+
+<!-- =========================== FILTROS =========================== -->
+<div class="container">
+  <div class="filtros">
+    <button class="filtro-btn active" data-categoria="todos">Todos</button>
+    <button class="filtro-btn" data-categoria="cozinhas">Cozinhas</button>
+    <button class="filtro-btn" data-categoria="quartos">Quartos</button>
+    <button class="filtro-btn" data-categoria="salas">Salas</button>
+    <button class="filtro-btn" data-categoria="closets">Closets</button>
+    <button class="filtro-btn" data-categoria="escritorios">Escritórios</button>
+  </div>
+</div>
+
+<!-- =========================== GRID DA GALERIA =========================== -->
+<!--
+  Para adicionar um novo projeto:
+  1. Copie um bloco <div class="galeria-item"> inteiro
+  2. Troque data-categoria (cozinhas | quartos | salas | closets | escritorios)
+  3. Troque data-titulo, data-categoria-label e data-img pelo nome/foto do projeto
+  4. Troque <img class="ph" src="..."> pela foto real do projeto
+  5. Se o projeto tiver vídeo: mantenha o <div class="video-badge">, coloque o
+     caminho do arquivo em data-video="assets/videos/nome-do-video.mp4" (coloque o
+     arquivo .mp4 na pasta "assets/videos" ao lado de galeria.html). Ao clicar no
+     card, o lightbox toca o vídeo em vez de mostrar a foto.
+     Se não tiver vídeo, apague o data-video e o <div class="video-badge">.
+-->
+<div class="container">
+  <div class="galeria-grid">
+
+    <div class="galeria-item" data-categoria="cozinhas" data-titulo="Cozinha Planejada Amêndoa" data-categoria-label="Cozinha" data-img="fotos/cozinha-amendoa.jpg">
+      <img class="ph" src="/assets/cozinha 2.jpg" alt="Cozinha Planejada Amêndoa">
+      <div class="item-overlay"><h4>Cozinha Planejada Amêndoa</h4><span>Cozinha</span></div>
+    </div>
+
+    <div class="galeria-item" data-categoria="quartos" data-titulo="Quarto Casal Nogueira" data-categoria-label="Quarto" data-img="fotos/quarto-nogueira.jpg" data-video="assets/videos/quarto-casal1.mp4">
+      <img class="ph" src="/assets/quarto 2.jpg" alt="Quarto Casal Nogueira">
+      <div class="video-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="item-overlay"><h4>Quarto Casal Nogueira</h4><span>Quarto · com vídeo</span></div>
+    </div>
+
+    <div class="galeria-item" data-categoria="closets" data-titulo="Closet Ilha Central" data-categoria-label="Closet" data-img="fotos/closet-ilha-central.jpg">
+      <img class="ph" src="/assets/closet 2.jpg" alt="Closet Ilha Central">
+      <div class="item-overlay"><h4>Closet Ilha Central</h4><span>Closet</span></div>
+    </div>
+
+    <div class="galeria-item" data-categoria="salas" data-titulo="Sala de Estar Rústica" data-categoria-label="Sala" data-img="fotos/sala-rustica.jpg">
+      <img class="ph" src="/assets/sala 1.jpg" alt="Sala de Estar Rústica">
+      <div class="item-overlay"><h4>Sala de Estar Rústica</h4><span>Sala</span></div>
+    </div>
+
+    <div class="galeria-item" data-categoria="escritorios" data-titulo="Home Office Compacto" data-categoria-label="Escritório" data-img="fotos/home-office-compacto.jpg">
+      <img class="ph" src="/assets/escritorio 1.jpg" alt="Home Office Compacto">
+      <div class="item-overlay"><h4>Home Office Compacto</h4><span>Escritório</span></div>
+    </div>
+
+    <div class="galeria-item" data-categoria="cozinhas" data-titulo="Cozinha Integrada Preto Fosco" data-categoria-label="Cozinha" data-img="fotos/cozinha-preto-fosco.jpg" data-video="assets/videos/cozinha1.mp4">
+      <img class="ph" src="/assets/cozinha 4.jpg" alt="Cozinha Integrada Preto Fosco">
+      <div class="video-badge"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="item-overlay"><h4>Cozinha Integrada Preto Fosco</h4><span>Cozinha · com vídeo</span></div>
+    </div>
+
+    <div class="galeria-item" data-categoria="quartos" data-titulo="Quarto Infantil Divertido" data-categoria-label="Quarto" data-img="fotos/quarto-infantil.jpg">
+      <img class="ph" src="/assets/quarto infantil 1.jpg" alt="Quarto Infantil Divertido">
+      <div class="item-overlay"><h4>Quarto Infantil Divertido</h4><span>Quarto</span></div>
+    </div>
+
+    <div class="galeria-item" data-categoria="closets" data-titulo="Closet Compacto Casal" data-categoria-label="Closet" data-img="fotos/closet-compacto.jpg">
+      <img class="ph" src="/assets/closet 1.jpg" alt="Closet Compacto Casal">
+      <div class="item-overlay"><h4>Closet Compacto Casal</h4><span>Closet</span></div>
+    </div>
+
+    <div class="galeria-item" data-categoria="salas" data-titulo="Home Theater Painel Ripado" data-categoria-label="Sala" data-img="fotos/home-theater.jpg">
+      <img class="ph" src="/assets/home thater 1.jpg" alt="Home Theater Painel Ripado">
+      <div class="item-overlay"><h4>Home Theater Painel Ripado</h4><span>Sala</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- =========================== CTA FINAL =========================== -->
+<section class="cta-final">
+  <div class="ph has-img" style="background-image:url('fotos/cta-galeria.jpg');"><span>Foto grande de fundo — móvel finalizado em ambiente real</span></div>
+  <div class="container">
+    <span class="eyebrow">Gostou do que viu?</span>
+    <h2>Vamos criar o próximo projeto juntos?</h2>
+    <a href="index.html#contato" class="btn btn-primary">Peça um orçamento gratuito</a>
+  </div>
+</section>
+
+<!-- =========================== LIGHTBOX =========================== -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-content">
+    <button class="lightbox-close" aria-label="Fechar">✕</button>
+    <button class="lightbox-prev" aria-label="Anterior">‹</button>
+    <button class="lightbox-next" aria-label="Próximo">›</button>
+    <div class="ph has-img" id="lightboxImg"><span>Foto grande</span></div>
+    <video id="lightboxVideo" controls></video>
+    <div class="lightbox-caption">
+      <strong id="lightboxTitle">Título do projeto</strong>
+      <span id="lightboxCategoria">Categoria</span>
+    </div>
+  </div>
+</div>
+
+<!-- =========================== FOOTER =========================== -->
+<footer id="contato">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">Marcenaria Oliveira</div>
+        <p style="max-width:280px; font-size:0.9rem;">Móveis planejados 100% MDF, feitos sob medida para transformar o seu espaço.</p>
+      </div>
+      <div>
+        <h5>Navegação</h5>
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="index.html#sobre">Sobre</a></li>
+          <li><a href="index.html#diferenciais">Diferenciais</a></li>
+          <li><a href="galeria.html">Galeria</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contato</h5>
+        <ul>
+          <li>(00) 00000-0000 — WhatsApp</li>
+          <li>contato@marcenariaoliveira.com.br</li>
+          <li>Endereço da oficina/loja</li>
+          <li>Seg. a Sex., 8h às 18h</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Marcenaria Oliveira. Todos os direitos reservados.</span>
+      <span>Feito com dedicação, tábua por tábua.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="galeria.js"></script>
+</body>
+</html>

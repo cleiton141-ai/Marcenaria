@@ -114,10 +114,11 @@ nav a:hover, nav a.active{ color:var(--walnut-900); }
 .burger span{ width:24px; height:2px; background:var(--walnut-900); display:block; }
 
 /* =========================== HERO (institucional) =========================== */
-.hero{ padding: 72px 0 40px; overflow:visible; }
+:root{ --header-h: 88px; }
+.hero{ padding: 72px 0 40px; overflow:visible; position:relative; }
 .hero-grid{
   display:grid; grid-template-columns: 1fr 1.1fr; gap:56px; align-items:center;
-  position:relative;
+  position:relative; z-index:1; /* fica acima da foto, que corre por baixo */
 }
 .eyebrow{
   font-size:0.75rem; letter-spacing:.18em; text-transform:uppercase;
@@ -139,11 +140,21 @@ nav a:hover, nav a.active{ color:var(--walnut-900); }
 .btn-ghost{ border:1.5px solid var(--walnut-900); color:var(--walnut-900); background:transparent; }
 .btn-ghost:hover{ background:var(--walnut-900); color:var(--cream-soft); }
 
-.hero-img-wrap{ position:relative; }
-.hero-img-wrap .wood-rings{ width:230px; height:230px; top:-60px; right:-40px; z-index:0; }
-.hero-img{
-  position:relative; z-index:1; aspect-ratio: 4/4.6;
-  border-radius: 62% 38% 45% 55% / 55% 45% 55% 45%;
+/* Foto solta do hero: encosta nas bordas direita/baixo da seção e "sobe" por trás
+   do cabeçalho, sem alterar o header nem o texto (que fica em .hero-grid, por cima, z-index:1) */
+.hero-photo{
+  position:absolute;
+  top: calc(-1 * var(--header-h));
+  right:0;
+  bottom:0;
+  width: min(1180px, 60vw);
+  z-index:0;
+  pointer-events:none;
+}
+.hero-photo-img{
+  width:100%; height:100%;
+  clip-path: url(#heroOrganicClip);
+  border-radius:0;
 }
 
 /* =========================== FEATURED / DIFERENCIAIS =========================== */
@@ -178,11 +189,30 @@ nav a:hover, nav a.active{ color:var(--walnut-900); }
 .link-arrow{ font-weight:500; font-size:0.9rem; border-bottom:1.5px solid var(--walnut-900); padding-bottom:2px; white-space:nowrap; }
 
 /* =========================== SOBRE / HISTÓRIA =========================== */
-.sobre{ padding: 90px 0; }
-.sobre-grid{ display:grid; grid-template-columns: 1.1fr 1fr; gap:56px; align-items:center; }
-.sobre-img-wrap{ position:relative; }
-.sobre-img-wrap .wood-rings{ width:220px; height:220px; bottom:-46px; left:-46px; z-index:0; }
-.sobre-img{ position:relative; z-index:1; aspect-ratio: 4/4.2; border-radius: 50% 50% 55% 45% / 60% 60% 40% 40%; }
+.sobre{ padding: 90px 0; position:relative; }
+.sobre-grid{
+  display:grid; grid-template-columns: 1.1fr 1fr; gap:56px; align-items:center;
+  position:relative; z-index:1; /* fica acima da foto, que corre por baixo */
+}
+.sobre-img-spacer{ /* div vazia: só reserva a largura da coluna da foto no grid */ }
+
+/* Foto solta da seção Sobre: MESMO esquema da foto do hero, só espelhada
+   (aqui ela encosta na borda ESQUERDA da tela, em vez da direita) */
+.sobre-photo{
+  position:absolute;
+  top:0;
+  left:0;
+  bottom:0;
+  width: min(1180px, 60vw);
+  z-index:0;
+  pointer-events:none;
+}
+.sobre-photo-img{
+  width:100%; height:100%;
+  clip-path: url(#sobreOrganicClip);
+  border-radius:0;
+}
+
 .sobre-text .eyebrow{ margin-bottom:14px; }
 .sobre-text h2{ font-family:var(--font-display); font-weight:500; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; line-height:1.2; }
 .sobre-text p{ color:var(--walnut-700); margin-bottom:18px; max-width:520px; }
@@ -323,8 +353,21 @@ footer a:hover{ color:var(--honey-300); }
 @media (max-width: 900px){
   nav, .nav-cta{ display:none; }
   .burger{ display:flex; }
-  .hero-grid, .sobre-grid{ grid-template-columns:1fr; }
-  .hero-img-wrap{ order:-1; }
+  .hero{ display:flex; flex-direction:column; }
+  .hero-grid{ grid-template-columns:1fr; }
+  .sobre{ display:flex; flex-direction:column; }
+  .sobre-grid{ grid-template-columns:1fr; }
+  .sobre-img-spacer{ display:none; }
+  .hero-photo{
+    order:-1; position:static; width:100%; height:320px;
+    margin-bottom:32px; pointer-events:auto;
+  }
+  .hero-photo-img{ clip-path:none; border-radius:24px; }
+  .sobre-photo{
+    order:-1; position:static; width:100%; height:320px;
+    margin-bottom:32px; pointer-events:auto;
+  }
+  .sobre-photo-img{ clip-path:none; border-radius:24px; }
   .cards-grid{ grid-template-columns: repeat(2,1fr); }
   .galeria-row{ grid-template-columns: repeat(2,1fr); }
   .galeria-grid{ grid-template-columns:repeat(2,1fr); }

@@ -11,6 +11,85 @@
 </head>
 <body>
 
+<!-- Formato oculto usado para recortar a foto do hero e a foto da seção "Sobre".
+     Por padrão é um RETÂNGULO normal (foto inteira aparece). O lado esquerdo
+     de cada foto — o lado que fica perto do texto — pode virar uma curva
+     usando os 3 números explicados no comentário logo abaixo. -->
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <clipPath id="heroOrganicClip" clipPathUnits="objectBoundingBox">
+      <path id="heroOrganicPath" d="M 0.0000,0.0000 L 1.0000,0.0000 L 1.0000,1.0000 L 0.0000,1.0000 Z" />
+    </clipPath>
+  </defs>
+</svg>
+
+<svg width="0" height="0" style="position:absolute;">
+  <defs>
+    <clipPath id="sobreOrganicClip" clipPathUnits="objectBoundingBox">
+      <path id="sobreOrganicPath" d="M 1.0000,0.0000 L 0.0000,0.0000 L 0.0000,1.0000 L 1.0000,1.0000 Z" />
+    </clipPath>
+  </defs>
+</svg>
+
+<!--
+  ===========================================================================
+  CURVA NO LADO DA FOTO QUE FICA PERTO DO TEXTO (hero + seção Sobre juntos)
+  ===========================================================================
+  Por padrão as fotos ficam retangulares (os 3 números abaixo em 0.00).
+  Pra criar uma curva nesse lado, é só aumentar um ou mais desses 3 números.
+  Quanto maior o número, mais aquele trecho "come" da foto.
+
+  - cimaX  -> o quanto entra no trecho de CIMA da foto
+  - meioX  -> o quanto entra no trecho do MEIO da foto
+  - baixoX -> o quanto entra no trecho de BAIXO da foto
+
+  Valores costumam ficar bem entre 0.00 (reto) e 0.35 (curva bem fechada).
+  Pode usar valores diferentes pra cima/meio/baixo pra desenhar qualquer
+  curva (barriga, cintura, onda, etc.) — a curva sempre fica suave sozinha.
+
+  Mude, salve e dê um refresh forçado (Ctrl+Shift+R) pra ver o efeito. Essa
+  curva só aparece em telas acima de 900px de largura (abaixo disso o CSS
+  troca por uma borda arredondada simples).
+-->
+<script>
+(function () {
+  // ============ AJUSTE AQUI (só estes 3 números) ============
+  var cimaX  = 0.5490;
+  var meioX  = 0.1500;
+  var baixoX = 0.2950;
+  // ============================================================
+
+  function n(v) { return v.toFixed(4); }
+
+  // Gera uma curva suave passando por 3 pontos (cima, meio, baixo) do lado
+  // esquerdo, fechando o retângulo do lado direito (rightX).
+  function edgePath(cimaX, meioX, baixoX, rightX) {
+    var P0 = [cimaX, 0.0], P1 = [meioX, 0.5], P2 = [baixoX, 1.0];
+    var cp1a = [P0[0] + (P1[0]-P0[0])/6, P0[1] + (P1[1]-P0[1])/6];
+    var cp2a = [P1[0] - (P2[0]-P0[0])/6, P1[1] - (P2[1]-P0[1])/6];
+    var cp1b = [P1[0] + (P2[0]-P0[0])/6, P1[1] + (P2[1]-P0[1])/6];
+    var cp2b = [P2[0] - (P2[0]-P1[0])/6, P2[1] - (P2[1]-P1[1])/6];
+    return [
+      "M " + n(P0[0]) + "," + n(P0[1]),
+      "C " + n(cp1a[0]) + "," + n(cp1a[1]) + " " + n(cp2a[0]) + "," + n(cp2a[1]) + " " + n(P1[0]) + "," + n(P1[1]),
+      "C " + n(cp1b[0]) + "," + n(cp1b[1]) + " " + n(cp2b[0]) + "," + n(cp2b[1]) + " " + n(P2[0]) + "," + n(P2[1]),
+      "L " + n(rightX) + ",1.0000",
+      "L " + n(rightX) + ",0.0000",
+      "Z"
+    ].join(" ");
+  }
+
+  // hero: foto fica à direita, texto à esquerda -> curva "come" pelo lado x=0 (esquerda)
+  var heroPath = edgePath(cimaX, meioX, baixoX, 1.0);
+
+  // sobre: foto fica à esquerda, texto à direita -> é o espelho (1 - x), e fecha do lado x=0
+  var sobrePath = edgePath(1 - cimaX, 1 - meioX, 1 - baixoX, 0.0);
+
+  document.getElementById("heroOrganicPath").setAttribute("d", heroPath);
+  document.getElementById("sobreOrganicPath").setAttribute("d", sobrePath);
+})();
+</script>
+
 <!-- =========================== HEADER =========================== -->
 <header>
   <div class="nav-wrap">
@@ -43,10 +122,9 @@
         <a href="galeria.html" class="btn btn-ghost">Ver projetos</a>
       </div>
     </div>
-    <div class="hero-img-wrap">
-      <div class="wood-rings"></div>
-      <img class="ph hero-img" src="assets/cozinha1.png" alt="Ambiente planejado pela Marcenaria Oliveira">
-    </div>
+  </div>
+  <div class="hero-photo">
+    <img class="ph hero-photo-img" src="assets/cozinha1.png" alt="Ambiente planejado pela Marcenaria Oliveira">
   </div>
 </section>
 
@@ -105,11 +183,11 @@
 
 <!-- =========================== SOBRE / HISTÓRIA =========================== -->
 <section class="sobre" id="sobre">
+  <div class="sobre-photo">
+    <img class="ph sobre-photo-img" src="assets/oficina_de_marcenaria.png" alt="Marceneiro(a) da Marcenaria Oliveira na oficina">
+  </div>
   <div class="container sobre-grid">
-    <div class="sobre-img-wrap">
-      <div class="wood-rings"></div>
-      <img class="ph sobre-img" src="assets/oficina_de_marcenaria.png" alt="Marceneiro(a) da Marcenaria Oliveira na oficina">
-    </div>
+    <div class="sobre-img-spacer"></div>
     <div class="sobre-text">
       <span class="eyebrow">Sobre a Marcenaria Oliveira</span>
       <h2>Da oficina para a sua casa, com a marca da tradição.</h2>
